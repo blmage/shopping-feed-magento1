@@ -86,6 +86,13 @@ class Profileolabs_Shoppingflux_Model_Export_Flux extends Mage_Core_Model_Abstra
             }
         }
 
+        // Compatibility with "PAD SPACE" collations, that treat trailing spaces as insignificant in comparisons.
+        foreach ($collection as $item) {
+            if (rtrim($item->getSku()) === rtrim($productSku)) {
+                return $item;
+            }
+        }
+
         /** @var Mage_Catalog_Model_Product $product */
         $product = Mage::getModel('catalog/product');
 
